@@ -1,0 +1,122 @@
+@use "./variables";
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap');
+
+body {
+    margin-top: 0;
+    padding: 0;
+    list-style: none;
+    box-sizing: border-box;
+    background-color: #212529;
+}
+.todo-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 800px;
+    height: 500px;
+    margin: auto;
+    header {
+        height: 70px;
+        padding: 12px;
+        .todo-input {
+            height: 35px;
+            width: 220px;
+        }
+        .add-btn {
+            height: 40px;
+            width: 80px;
+            background-color: #3F37C9;
+            color: white;
+            font-weight: 600;
+            border: none;
+            border-radius: 4px;
+            font-size: 1.3rem;
+            margin: 18px 20px 0 0;
+        }
+    }
+    .task-container{
+        display: flex;
+        justify-content: center;
+        gap: 4px;
+        width: 100%;
+        flex-direction: column;
+        align-items: center;
+    }
+        .title {
+            font-family: variables.$app-font-family;
+            font-optical-sizing: auto;
+            font-weight: 800;
+            font-style: normal;
+            text-align: center;
+            color: #FA8072;
+        }
+    }
+    .group-list-item {
+        width: 400px;
+        .item{
+            font-family: "Open Sans", serif;
+            font-optical-sizing: auto;
+            font-weight: 600;
+            font-size: 2.1rem;
+            color: white;
+            list-style: none;
+            width: 100%;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+        }
+        .checked {
+            text-decoration: line-through;
+            text-decoration-thickness: 6px;
+            text-decoration-color: red;
+        }
+        .textContent {
+            text-align: center;
+        }
+        .remove-btn {
+            width: 60px;
+            height: 51px;
+            background-color: #111827;
+          border: 1px solid transparent;
+          border-radius: .75rem;
+          box-sizing: border-box;
+          color: #FFFFFF;
+          cursor: pointer;
+          flex: 0 0 auto;
+          font-family: "Inter var",ui-sans-serif,system-ui,-apple-system,system-ui,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
+          font-size: 1.125rem;
+          font-weight: 600;
+          line-height: 1.5rem;
+          padding: .75rem 1.2rem;
+          text-align: center;
+          text-decoration: none #6B7280 solid;
+          text-decoration-thickness: auto;
+          transition-duration: .2s;
+          transition-property: background-color,border-color,color,fill,stroke;
+          transition-timing-function: cubic-bezier(.4, 0, 0.2, 1);
+          user-select: none;
+          -webkit-user-select: none;
+          touch-action: manipulation;
+          &:hover {
+            background-color: #374151;
+          }
+          
+          &:focus {
+            box-shadow: none;
+            outline: 2px solid transparent;
+            outline-offset: 2px;
+          }
+            img {
+                width: 10px;
+                height: 10px;
+                object-fit: cover;
+                background-position: center;
+            }
+        }
+        @media (min-width: 768px) {
+            .remove-btn {
+              padding: .75rem 1.5rem;
+            }
+          }
+    }

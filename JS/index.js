@@ -1,21 +1,14 @@
-// créer un tableau vide
-// sauvegarder les données
-// les charger les données
-// insérer les éléments dans le DOM
-// ajouter les tâches
-// supprimer les tâches
-
-
 import { createElement } from "./createElement.js";
 
 const init = () => {
 
         let taskArr = [];
 
-        const taskContainer = document.querySelector(".task");
         const button = document.querySelector(".add-btn");
         const inputField = document.querySelector(".todo-input");
+        const groupItem = document.querySelector(".group-list-item");
 
+        // Save tasks in LocalStorage
         const save = () => {
             localStorage.setItem("tasks", JSON.stringify(taskArr));
         }
@@ -23,18 +16,15 @@ const init = () => {
         const load = () => {
             const loadData = localStorage.getItem("tasks");
             taskArr = JSON.parse(loadData);
-            taskArr.forEach((tasks) => TaskInDom(tasks));
+            if (loadData){
+                taskArr.forEach((tasks) => TaskInDom(tasks));
+            }
+            
         }
 
-
-        // Here we define how tasks will be inserted inside DOM
+        // Here we build how tasks will be inserted inside DOM
 
         const TaskInDom = (data) => {
-            const groupItem = createElement("ul", {
-                class: "group-list-item",
-            });
-            taskContainer.appendChild(groupItem);
-
             const item = createElement("li", {
                 class: "item"
             });
@@ -52,35 +42,57 @@ const init = () => {
             item.appendChild(taskContent);
             taskContent.textContent = data;
 
+            radioInput.addEventListener("click", function taskDone () {
+                if (radioInput.checked){
+                    taskContent.classList.toggle("checked");
+                }
+            })
+
             const removeButton = createElement("button",{
                 class: "remove-btn"
             })
             item.appendChild(removeButton);
+
+            // remove tasks on click 
             
-            removeButton.addEventListener("click", function removeTask(){
-                groupItem.remove();
-                save();
-            })
+            removeButton.addEventListener("click", function removeTask(event){
+                if (event.currentTarget) {
+                    item.remove();
+                }
+                JSON.parse(localStorage.getItem("tasks"));
+                
+                if (taskArr && Array.isArray(taskArr)){
+                    const filteredData = taskArr.filter((task) => task !== data);
+
+                    // resave tasks on task remove
+                    localStorage.setItem("tasks", JSON.stringify(filteredData));
+
+                }
+        });
+                
         }
+
+        // task creation 
+
         const addTask = () => {
-            const data = inputField.value;
+            const data = inputField.value.toLowerCase().trim();
             if (!data){
                 return;
             }
-            taskArr.push(data);
+            
+                taskArr.push(data);
+            
+            
+              
             TaskInDom(data);
             save();
             inputField.value = "";
         }
         addTask();
+        
+        // with this handler we can add tasks on click, using addTask function
         button.addEventListener("click", addTask);
         load();
     }
     
-
-    
-
-    
-
-
 init();
